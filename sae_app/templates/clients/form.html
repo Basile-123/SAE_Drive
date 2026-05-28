@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% if client %}Modifier{% else %}Ajouter{% endif %} un client</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>Nom</td>
+            <td><input type="text" name="nom" value="{{ client.nom }}" required></td>
+        </tr>
+        <tr>
+            <td>Prénom</td>
+            <td><input type="text" name="prenom" value="{{ client.prenom }}" required></td>
+        </tr>
+        <tr>
+            <td>Adresse</td>
+            <td><textarea name="adresse">{{ client.adresse }}</textarea></td>
+        </tr>
+    </table>
+    <br>
+    <button type="submit">Enregistrer</button>
+    <a href="/clients/">Annuler</a>
+</form>
+{% endblock %}

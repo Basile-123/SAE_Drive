@@ -1,22 +1,19 @@
-"""
-URL configuration for sae_project project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from sae_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Produits
+    path('produits/', views.produit_liste, name='produit_liste'),
+    path('produits/ajouter/', views.produit_ajouter, name='produit_ajouter'),
+    path('produits/modifier/<int:pk>/', views.produit_modifier, name='produit_modifier'),
+    path('produits/supprimer/<int:pk>/', views.produit_supprimer, name='produit_supprimer'),
+
+    # Clients
+    path('clients/', views.client_liste, name='client_liste'),
+    path('clients/ajouter/', views.client_ajouter, name='client_ajouter'),
+    path('clients/modifier/<int:pk>/', views.client_modifier, name='client_modifier'),
+    path('clients/supprimer/<int:pk>/', views.client_supprimer, name='client_supprimer'),
 ]

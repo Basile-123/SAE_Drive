@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Liste des produits</h1>
+<a href="/produits/ajouter/" class="btn btn-add">+ Ajouter un produit</a>
+<br><br>
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Marque</th>
+        <th>Prix</th>
+        <th>Date péremption</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
+    </tr>
+    {% for produit in produits %}
+    <tr>
+        <td>{{ produit.nom }}</td>
+        <td>{{ produit.marque }}</td>
+        <td>{{ produit.prix }} €</td>
+        <td>{{ produit.date_peremption }}</td>
+        <td>{{ produit.categorie }}</td>
+        <td>
+            <a href="/produits/modifier/{{ produit.pk }}/" class="btn btn-edit">Modifier</a>
+            <a href="/produits/supprimer/{{ produit.pk }}/" class="btn btn-delete">Supprimer</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">Aucun produit.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
