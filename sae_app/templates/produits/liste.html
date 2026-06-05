@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <h1>Liste des produits</h1>
 <a href="/produits/ajouter/" class="btn btn-add">+ Ajouter un produit</a>
-<br><br>
+<div class="card">
 <table>
-    <tr>
-        <th>Nom</th>
-        <th>Marque</th>
-        <th>Prix</th>
-        <th>Date péremption</th>
-        <th>Catégorie</th>
-        <th>Actions</th>
-    </tr>
+    <thead><tr>
+        <th>Nom</th><th>Marque</th><th>Prix</th><th>Date péremption</th><th>Catégorie</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
     {% for produit in produits %}
     <tr>
         <td>{{ produit.nom }}</td>
@@ -26,7 +21,9 @@
         </td>
     </tr>
     {% empty %}
-    <tr><td colspan="6">Aucun produit.</td></tr>
+    <tr><td colspan="6" class="empty">Aucun produit.</td></tr>
     {% endfor %}
+    </tbody>
 </table>
+</div>
 {% endblock %}
