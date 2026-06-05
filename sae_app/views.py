@@ -66,3 +66,37 @@ def client_supprimer(request, pk):
     client = get_object_or_404(Client, pk=pk)
     client.delete()
     return redirect('client_liste')
+
+# ───── CATEGORIES ─────
+def categorie_liste(request):
+    categories = Categorie.objects.all()
+    return render(request, 'categories/liste.html', {'categories': categories})
+
+
+def categorie_ajouter(request):
+    if request.method == 'POST':
+        Categorie.objects.create(
+            nom=request.POST['nom'],
+            descriptif=request.POST['descriptif']
+        )
+        return redirect('categorie_liste')
+
+    return render(request, 'categories/form.html')
+
+
+def categorie_modifier(request, pk):
+    categorie = get_object_or_404(Categorie, pk=pk)
+
+    if request.method == 'POST':
+        categorie.nom = request.POST['nom']
+        categorie.descriptif = request.POST['descriptif']
+        categorie.save()
+        return redirect('categorie_liste')
+
+    return render(request, 'categories/form.html', {'categorie': categorie})
+
+
+def categorie_supprimer(request, pk):
+    categorie = get_object_or_404(Categorie, pk=pk)
+    categorie.delete()
+    return redirect('categorie_liste')

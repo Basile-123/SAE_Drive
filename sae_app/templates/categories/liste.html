@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Liste des catégories</h1>
+
+<a href="/categories/ajouter/" class="btn btn-add">+ Ajouter une catégorie</a>
+
+<br><br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Descriptif</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for categorie in categories %}
+    <tr>
+        <td>{{ categorie.id }}</td>
+        <td>{{ categorie.nom }}</td>
+        <td>{{ categorie.descriptif }}</td>
+        <td>
+            <a href="/categories/modifier/{{ categorie.pk }}/" class="btn btn-edit">Modifier</a>
+            <a href="/categories/supprimer/{{ categorie.pk }}/" class="btn btn-delete">Supprimer</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">Aucune catégorie.</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+</body>
+</html>

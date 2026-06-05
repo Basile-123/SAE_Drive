@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Drive - SAÉ 2.03</title>
+    <link rel="stylesheet" href="{% static 'sae_app/style.css' %}">
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         nav a { margin-right: 15px; }
@@ -20,6 +22,7 @@
         <a href="/produits/">Produits</a>
         <a href="/clients/">Clients</a>
         <a href="/commandes/">Commandes</a>
+        <a href="/categories/">Catégories</a>
     </nav>
     <hr>
     {% block content %}{% endblock %}
