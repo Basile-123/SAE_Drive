@@ -38,17 +38,31 @@ class Client(models.Model):
         return f"{self.prenom} {self.nom}"
 
 class Commande(models.Model):
-    numero_commande = models.AutoField(primary_key=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_commande = models.DateField(auto_now_add=True)
+    date = models.DateField(null=True, blank=True)
+
+    def cout_total(self):
+        total = 0
+        for ligne in self.ligneproduit_set.all():
+            total += ligne.sous_total()
+        return total
+
+    def __str__(self):
+        return f"Commande n°{self.id} - {self.client} - {self.date}"
 
     class Meta:
         db_table = 'commande'
 
-class LigneCommande(models.Model):
+class LigneProduit(models.Model):
     commande = models.ForeignKey(Commande, on_delete=models.CASCADE)
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     quantite = models.IntegerField(default=1)
+
+    def sous_total(self):
+        return self.produit.prix * self.quantite
+
+    def __str__(self):
+        return f"{self.quantite} x {self.produit.nom}"
 
     class Meta:
         db_table = 'ligne_commande'

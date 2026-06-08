@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ajouter un produit à la commande n°{{ commande.id }}</h1>
+<div class="form-card">
+    <form method="post" action="/commandes/{{ commande.id }}/ligne/traitement/">
+        {% csrf_token %}
+        {% for field in formulaire %}
+        <div class="form-group">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Ajouter</button>
+            <a href="/commandes/{{ commande.id }}/" class="btn-cancel">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

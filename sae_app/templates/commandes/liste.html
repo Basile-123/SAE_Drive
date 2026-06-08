@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des commandes</h1>
+<a href="/commandes/ajouter/" class="btn btn-add">+ Nouvelle commande</a>
+<div class="card">
+<table>
+    <thead><tr>
+        <th>N°</th><th>Client</th><th>Date</th><th>Total</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
+    {% for commande in liste %}
+    <tr>
+        <td>{{ commande.id }}</td>
+        <td>{{ commande.client }}</td>
+        <td>{{ commande.date }}</td>
+        <td>{{ commande.cout_total }} €</td>
+        <td>
+            <a href="/commandes/{{ commande.id }}/" class="btn btn-edit">Voir</a>
+            <a href="/commandes/modifier/{{ commande.id }}/" class="btn btn-edit">Modifier</a>
+            <a href="/commandes/supprimer/{{ commande.id }}/" class="btn btn-delete">Supprimer</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="empty">Aucune commande.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

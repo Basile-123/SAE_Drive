@@ -23,4 +23,18 @@ urlpatterns = [
     path('categories/ajouter/', views.categorie_ajouter, name='categorie_ajouter'),
     path('categories/modifier/<int:pk>/', views.categorie_modifier, name='categorie_modifier'),
     path('categories/supprimer/<int:pk>/', views.categorie_supprimer, name='categorie_supprimer'),
+
+    # Commandes
+    path('commandes/', views.afficher_commandes, name='commandes'),
+    path('commandes/ajouter/', views.commande_formulaire, name='commande_ajouter'),
+    path('commandes/traitement/', views.commande_traitement, name='commande_traitement'),
+    path('commandes/<int:id>/', views.commande_afficher_one, name='commande_detail'),
+    path('commandes/modifier/<int:id>/', views.commande_modifier, name='commande_modifier'),
+    path('commandes/sauvegarder/<int:id>/', views.commande_sauvegarder_modif, name='commande_sauvegarder'),
+    path('commandes/supprimer/<int:id>/', views.commande_supprimer, name='commande_supprimer'),
+
+    # Lignes
+    path('commandes/<int:id_commande>/ligne/ajouter/', views.ligne_formulaire, name='ligne_ajouter'),
+    path('commandes/<int:id_commande>/ligne/traitement/', views.ligne_traitement, name='ligne_traitement'),
+    path('lignes/supprimer/<int:id>/', views.ligne_supprimer, name='ligne_supprimer'),
 ]

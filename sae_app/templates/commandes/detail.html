@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Commande n°{{ commande.id }}</h1>
+<p>Client : {{ commande.client }}</p>
+<p>Date : {{ commande.date }}</p>
+<a href="/commandes/{{ commande.id }}/ligne/ajouter/" class="btn btn-add">+ Ajouter un produit</a>
+<div class="card">
+<table>
+    <thead><tr>
+        <th>Produit</th><th>Prix unitaire</th><th>Quantité</th><th>Sous-total</th><th>Action</th>
+    </tr></thead>
+    <tbody>
+    {% for ligne in lignes %}
+    <tr>
+        <td>{{ ligne.produit.nom }}</td>
+        <td>{{ ligne.produit.prix }} €</td>
+        <td>{{ ligne.quantite }}</td>
+        <td>{{ ligne.sous_total }} €</td>
+        <td><a href="/lignes/supprimer/{{ ligne.id }}/" class="btn btn-delete">Supprimer</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="empty">Aucun produit.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<p><strong>Total : {{ commande.cout_total }} €</strong></p>
+<a href="/commandes/" class="btn-cancel">Retour</a>
+{% endblock %}
