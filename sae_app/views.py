@@ -100,3 +100,31 @@ def categorie_supprimer(request, pk):
     categorie = get_object_or_404(Categorie, pk=pk)
     categorie.delete()
     return redirect('categorie_liste')
+
+
+
+import csv
+import io
+
+def import_produits(request):
+    if request.method == 'POST' and request.FILES.get('fichier'):
+        fichier = request.FILES['fichier']
+        stream = io.StringIO(fichier.read().decode('utf-8'))
+        reader = csv.DictReader(stream)
+        erreurs = []
+        count = 0
+        for row in reader:
+            try:
+                cat = Categorie.objects.get(id=row['categorie_id'])
+                Produit.objects.create(
+                    nom=row['nom'],
+                    date_peremption=row['date_peremption'] or None,
+                    marque=row['marque'],
+                    prix=row['prix'],
+                    categorie=cat
+                )
+                count += 1
+            except Exception as e:
+                erreurs.append(f"Ligne ignorée : {row} — {e}")
+        return render(request, 'produits/import.html', {'count': count, 'erreurs': erreurs, 'done': True})
+    return render(request, 'produits/import.html')
